@@ -2,4 +2,6 @@
 
 ## Ricardo Wagner
 
-Este é um repositório para guardas as aulas de Programação orientada a objetos do semestre 2023-2
+Este é um repositório para guardas as aulas de Programação orientada a objetos do semestre 2023-2.
+
+![Github Logo](imagens\codercat.jpg)
