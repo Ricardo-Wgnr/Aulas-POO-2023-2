@@ -6,32 +6,41 @@ package engtelecom.poo;
 public class App {
     public static void main(String[] args) {
 
-//        Caneta c = new Caneta();
-//        Caneta d = new Caneta();
+//      Caneta c; // null
+        Caneta c = new Caneta();
+        Caneta d = new Caneta();
+
+        int i; // 0
+
+        c.definirCor("azul");
+        d.definirCor("verde");
+
+        c.setNivelTinta(0);
+        d.setNivelTinta(100);
+
+        c.desenhar(2, 1, 4, 3);
+        d.desenhar(2, 1, 2, 1);
+
+        System.out.println("Nivel de tinta em: " + c.getNivelTinta());
+        System.out.println("Nivel de tinta em: " + d.getNivelTinta());
+
+//        Caneta[] canetas = new Caneta[5];
 //
-//        c.definirCor("azul");
-//        d.definirCor("verde");
+//        for (int i = 0; i < canetas.length; i++) {
+//            canetas[i] = new Caneta();
+//        }
 //
-//        c.desenhar();
-//        d.desenhar();
-
-        Caneta[] canetas = new Caneta[5];
-
-        for (int i = 0; i < canetas.length; i++) {
-            canetas[i] = new Caneta();
-        }
-
-        canetas[0].definirCor("azul");
-        canetas[1].definirCor("verde");
-        canetas[2].definirCor("azul");
-        canetas[3].definirCor("preta");
-        canetas[4].definirCor("vermelha");
-
-        canetas[0].setNivelTinta(100);
-        canetas[2].setNivelTinta(200);
-        for (Caneta c : canetas) {
-            if (c.obterCor().equals("azul")) c.desenhar(4);
-        }
+//        canetas[0].definirCor("azul");
+//        canetas[1].definirCor("verde");
+//        canetas[2].definirCor("azul");
+//        canetas[3].definirCor("preta");
+//        canetas[4].definirCor("vermelha");
+//
+//        canetas[0].setNivelTinta(100);
+//        canetas[2].setNivelTinta(200);
+//        for (Caneta c : canetas) {
+//            if (c.obterCor().equals("azul")) c.desenhar(4);
+//        }
 
     }
 }
