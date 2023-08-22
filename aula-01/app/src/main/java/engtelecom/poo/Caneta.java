@@ -6,11 +6,14 @@ public class Caneta {
 
     private String cor;
     private double nivelTinta;
+    private double nivelTintaInicial;
 
     // Métodos
     public void desenhar(int unidades){
         System.out.println("Desenhando em " + cor);
-        nivelTinta = nivelTinta - ((nivelTinta*0.02)*unidades);
+        nivelTinta = nivelTinta - ((0.02*nivelTintaInicial)*unidades);
+        System.out.print("Nível de tinta em: " + (100*nivelTinta)/nivelTintaInicial);
+        System.out.println("%");
     }
 
     public void definirCor(String c){
@@ -26,6 +29,10 @@ public class Caneta {
     }
 
     public void setNivelTinta(double nivelTinta) {
+        if (this.nivelTinta <= 0) {
+            nivelTintaInicial = nivelTinta;
+        }
         this.nivelTinta = nivelTinta;
+
     }
 }

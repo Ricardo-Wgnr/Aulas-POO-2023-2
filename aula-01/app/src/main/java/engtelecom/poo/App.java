@@ -30,7 +30,7 @@ public class App {
         canetas[0].setNivelTinta(100);
         canetas[2].setNivelTinta(200);
         for (Caneta c : canetas) {
-            if (c.obterCor().equals("azul")) c.desenhar(1);
+            if (c.obterCor().equals("azul")) c.desenhar(4);
         }
 
     }
