@@ -7,6 +7,18 @@ public class App {
 
     public static void main (String[] args) {
 
+        Tempo t1 = new Tempo(22,30,30);
+        Tempo t2 = new Tempo(14,13,41);
+
+        System.out.println(t1.diferencaTempo(t2));
+
+        System.out.println(t1.toSegundos());
+
+        System.out.println(t1);
+
+        Tempo t3 = new Tempo(24,60,60);
+        System.out.println(t3);
+
     }
 
 }

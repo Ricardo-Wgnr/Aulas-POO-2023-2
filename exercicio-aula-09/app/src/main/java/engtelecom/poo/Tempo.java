@@ -82,7 +82,7 @@ public class Tempo {
     }
 
     public boolean setSegundos(int segundos) {
-        if (segundos >= 0 && minutos <= 59) {
+        if (segundos >= 0 && segundos <= 59) {
             this.segundos = segundos;
             return true;
         } else {
