@@ -16,7 +16,7 @@ public class App {
 
         System.out.println(t1);
 
-        Tempo t3 = new Tempo(24,60,60);
+        Tempo t3 = new Tempo(12,25,25);
         System.out.println(t3);
 
     }
