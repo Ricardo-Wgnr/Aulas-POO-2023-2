@@ -7,17 +7,17 @@ public class App {
 
     public static void main (String[] args) {
 
-        Tempo t1 = new Tempo(22,30,30);
-        Tempo t2 = new Tempo(14,13,41);
+        Tempo t1 = new Tempo(17,30,30);
+        Tempo t2 = new Tempo(12,13,41, 12);
 
-        System.out.println(t1.diferencaTempo(t2));
+        System.out.println("t1: " + t1);
+        System.out.println("t2: " + t2);
+        System.out.println("Diferença entre t1 e t2: " + t1.diferencaTempo(t2));
+        Tempo t3 = new Tempo();
+        System.out.println("Diferença entre t1 e t2 em horas: " + t3.toTempo((int)t1.diferencaTempo(t2)));
 
-        System.out.println(t1.toSegundos());
-
-        System.out.println(t1);
-
-        Tempo t3 = new Tempo(12,25,25);
-        System.out.println(t3);
+        System.out.println("t1 em segundos: " + t1.toSegundos());
+        System.out.println("t2 em segundos: " + t2.toSegundos());
 
     }
 
