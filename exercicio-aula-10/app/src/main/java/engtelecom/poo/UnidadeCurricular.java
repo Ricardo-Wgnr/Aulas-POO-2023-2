@@ -1,5 +1,7 @@
 package engtelecom.poo;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 
 public class UnidadeCurricular {
@@ -8,22 +10,22 @@ public class UnidadeCurricular {
     private String codigo;
     private String sigla;
     private Integer creditos;
-    private Integer semanas;
     private String ementa;
-    private ArrayList<String> atributos;
+    private ArrayList<String> objetivos;
     private ArrayList<String> conteudo;
 
-    public UnidadeCurricular(String nome, String codigo, String sigla, Integer creditos, Integer semanas, String ementa) {
+    public UnidadeCurricular(String nome, String codigo, String sigla, Integer creditos, String ementa) {
         this.nome = nome;
         this.codigo = codigo;
         this.sigla = sigla;
         this.creditos = creditos;
-        this.semanas = semanas;
         this.ementa = ementa;
+        this.objetivos = new ArrayList<>();
+        this.conteudo = new ArrayList<>();
     }
 
     public Integer getCargaHoraria() {
-        return this.semanas*this.creditos;
+        return Curso.SEMANAS*this.creditos;
     }
 
     public String getNome() {
@@ -58,14 +60,6 @@ public class UnidadeCurricular {
         this.creditos = creditos;
     }
 
-    public Integer getSemanas() {
-        return semanas;
-    }
-
-    public void setSemanas(Integer semanas) {
-        this.semanas = semanas;
-    }
-
     public String getEmenta() {
         return ementa;
     }
@@ -76,7 +70,8 @@ public class UnidadeCurricular {
 
     @Override
     public String toString() {
-        return nome + ", " + codigo + ", " + sigla + ", " + creditos + ", "
-                + semanas + ", " + ementa + ", " + "[ " + atributos + " ] " + "[ " + conteudo + "]";
+        return "Nome: " + nome + ", " + "Código: " + codigo + ", " + "Sigla: " + sigla + ", " + "Créditos: " + creditos + ", "
+                + "Carga Horária: " + getCargaHoraria() + ", " + "Semanas: " + Curso.SEMANAS + ", " + "Ementa: " + ementa + ", "
+                + "Objetivos: " + objetivos + ", " + "Conteúdo: " + conteudo;
     }
 }
