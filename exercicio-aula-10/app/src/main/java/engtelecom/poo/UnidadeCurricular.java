@@ -1,7 +1,5 @@
 package engtelecom.poo;
 
-import org.checkerframework.checker.units.qual.C;
-
 import java.util.ArrayList;
 
 public class UnidadeCurricular {
@@ -74,4 +72,25 @@ public class UnidadeCurricular {
                 + "Carga Horária: " + getCargaHoraria() + ", " + "Semanas: " + Curso.SEMANAS + ", " + "Ementa: " + ementa + ", "
                 + "Objetivos: " + objetivos + ", " + "Conteúdo: " + conteudo;
     }
+
+    public boolean adicionaConteudo (String novoConteudo) {
+        if (this.conteudo.add(novoConteudo)) return true;
+        return false;
+    }
+
+    public boolean removeConteudo (String conteudoAntigo) {
+        if (this.conteudo.remove(conteudoAntigo)) return true;
+        return false;
+    }
+
+    public boolean adicionaObjetivo (String novoObjetivo) {
+        if (this.objetivos.add(novoObjetivo)) return true;
+        return false;
+    }
+
+    public boolean removeObjetivo (String objetivoAntigo) {
+        if (this.objetivos.remove(objetivoAntigo)) return true;
+        return false;
+    }
+
 }

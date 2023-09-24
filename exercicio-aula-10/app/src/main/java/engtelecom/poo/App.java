@@ -3,11 +3,7 @@
  */
 package engtelecom.poo;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class App {
@@ -29,10 +25,11 @@ public class App {
         codigo = teclado.nextLine();
         System.out.println("Digite a sigla:");
         sigla = teclado.nextLine();
-        System.out.println("Digite o número de créditos:");
-        creditos = teclado.nextInt();
         System.out.println("Digite a ementa:");
         ementa = teclado.nextLine();
+        System.out.println("Digite o número de créditos:");
+        creditos = teclado.nextInt();
+
         UnidadeCurricular nova = new UnidadeCurricular(nome, codigo, sigla, creditos, ementa);
         var teste = this.banco.put(codigo, nova);
         if (teste == null) {
@@ -61,8 +58,117 @@ public class App {
         }
     }
 
+    public boolean alterarUc() {
+
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Insira o código da disciplina que deseja alterar: ");
+        String codigo = teclado.nextLine();
+        if (this.banco.containsKey(codigo)) {
+            System.out.println("Qual campo deseja alterar?");
+            String campo = teclado.nextLine();
+            switch (campo) {
+                case "nome":
+                    var nomeAntigo = this.banco.get(codigo);
+                    System.out.println("Digite o novo nome: ");
+                    String novoNome = teclado.nextLine();
+                    nomeAntigo.setNome(novoNome);
+                    return true;
+                case "codigo":
+                    var codigoAntigo = this.banco.get(codigo);
+                    System.out.println("Digite o novo código: ");
+                    String novoCodigo = teclado.nextLine();
+                    codigoAntigo.setCodigo(novoCodigo);
+                    return true;
+                case "sigla":
+                    var siglaAntiga = this.banco.get(codigo);
+                    System.out.println("Digite a nova sigla: ");
+                    String novaSigla = teclado.nextLine();
+                    siglaAntiga.setSigla(novaSigla);
+                    return true;
+                case "creditos":
+                    var creditosAntigos = this.banco.get(codigo);
+                    System.out.println("Digite o novo número de créditos: ");
+                    int novoCredito = teclado.nextInt();
+                    creditosAntigos.setCreditos(novoCredito);
+                    return true;
+                case "ementa":
+                    var ementaAntiga = this.banco.get(codigo);
+                    System.out.println("Digite a nova ementa: ");
+                    String novaEmenta = teclado.nextLine();
+                    ementaAntiga.setEmenta(novaEmenta);
+                    return true;
+                case "objetivos":
+                    System.out.println("Deseja adicionar ou remover um objetivo?");
+                    String testeObjetivo = teclado.nextLine();
+                    if (testeObjetivo.equals("adicionar")) {
+                        System.out.println("Digite o novo objetivo: ");
+                        String novoObjetivo = teclado.nextLine();
+                        var objetivoAntigo = this.banco.get(codigo);
+                        objetivoAntigo.adicionaObjetivo(novoObjetivo);
+                        return true;
+                    } else if (testeObjetivo.equals("remover")) {
+                        System.out.println("Digite o objetivo a ser removido: ");
+                        String objetivoRemovido = teclado.nextLine();
+                        var objetivoAtual = this.banco.get(codigo);
+                        objetivoAtual.removeObjetivo(objetivoRemovido);
+                        return true;
+                    } else {
+                        System.out.println("Digite adicionar ou remover");
+                        return false;
+                    }
+                case "conteudos":
+                    System.out.println("Deseja adicionar ou remover um conteudo?");
+                    String testeConteudo = teclado.nextLine();
+                    if (testeConteudo.equals("adicionar")) {
+                        System.out.println("Digite o novo conteúdo: ");
+                        String novoConteudo = teclado.nextLine();
+                        var conteudoAntigo = this.banco.get(codigo);
+                        conteudoAntigo.adicionaConteudo(novoConteudo);
+                        return true;
+                    } else if (testeConteudo.equals("remover")) {
+                        System.out.println("Digite o conteúdo a ser removido: ");
+                        String conteudoRemovido = teclado.nextLine();
+                        var conteudoAtual = this.banco.get(codigo);
+                        conteudoAtual.removeConteudo(conteudoRemovido);
+                        return true;
+                    } else {
+                        System.out.println("Digite adicionar ou remover");
+                        return false;
+                    }
+                default:
+                    System.out.println("Campo inválido");
+                    return false;
+            }
+        }
+        System.out.println("Código inexistente");
+        return false;
+    }
+
+    public boolean exibirDados() {
+
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Digite o código da disciplina que deseja exibir os dados: ");
+        String codigo = teclado.nextLine();
+
+        if (this.banco.containsKey(codigo)) {
+            var unidade = this.banco.get(codigo);
+            System.out.println(unidade);
+            return true;
+        }
+        return false;
+
+    }
+
+    public void listarSiglaNomeCreditos() {
+        this.banco.forEach((chave, valor)->{
+            var unidade = this.banco.get(chave);
+            System.out.println("Sigla: " + unidade.getSigla());
+            System.out.println("Nome: " + unidade.getNome());
+            System.out.println("Créditos: " + unidade.getCreditos());
+        });
+    }
     public void menuDeOperacoes() {
-        int opcao = 1;
+        int opcao;
         Scanner teclado = new Scanner(System.in);
 
         do {
@@ -84,10 +190,13 @@ public class App {
                     break;
                 case 3:
                     this.alterarUc();
+                    break;
                 case 4:
                     this.exibirDados();
+                    break;
                 case 5:
                     this.listarSiglaNomeCreditos();
+                    break;
                 case 6:
                     break;
                 default:
@@ -99,6 +208,8 @@ public class App {
 
     public static void main(String[] args) {
 
+        App teste = new App();
+        teste.menuDeOperacoes();
 
     }
 
