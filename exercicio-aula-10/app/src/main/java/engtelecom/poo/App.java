@@ -72,30 +72,35 @@ public class App {
                     System.out.println("Digite o novo nome: ");
                     String novoNome = teclado.nextLine();
                     nomeAntigo.setNome(novoNome);
+                    System.out.println("Nome alterado");
                     return true;
                 case "codigo":
                     var codigoAntigo = this.banco.get(codigo);
                     System.out.println("Digite o novo código: ");
                     String novoCodigo = teclado.nextLine();
                     codigoAntigo.setCodigo(novoCodigo);
+                    System.out.println("Código alterado");
                     return true;
                 case "sigla":
                     var siglaAntiga = this.banco.get(codigo);
                     System.out.println("Digite a nova sigla: ");
                     String novaSigla = teclado.nextLine();
                     siglaAntiga.setSigla(novaSigla);
+                    System.out.println("Sigla alterada");
                     return true;
                 case "creditos":
                     var creditosAntigos = this.banco.get(codigo);
                     System.out.println("Digite o novo número de créditos: ");
                     int novoCredito = teclado.nextInt();
                     creditosAntigos.setCreditos(novoCredito);
+                    System.out.println("Créditos alterados");
                     return true;
                 case "ementa":
                     var ementaAntiga = this.banco.get(codigo);
                     System.out.println("Digite a nova ementa: ");
                     String novaEmenta = teclado.nextLine();
                     ementaAntiga.setEmenta(novaEmenta);
+                    System.out.println("Ementa alterada");
                     return true;
                 case "objetivos":
                     System.out.println("Deseja adicionar ou remover um objetivo?");
@@ -105,12 +110,14 @@ public class App {
                         String novoObjetivo = teclado.nextLine();
                         var objetivoAntigo = this.banco.get(codigo);
                         objetivoAntigo.adicionaObjetivo(novoObjetivo);
+                        System.out.println("Objetivo adicionado");
                         return true;
                     } else if (testeObjetivo.equals("remover")) {
                         System.out.println("Digite o objetivo a ser removido: ");
                         String objetivoRemovido = teclado.nextLine();
                         var objetivoAtual = this.banco.get(codigo);
                         objetivoAtual.removeObjetivo(objetivoRemovido);
+                        System.out.println("Objetivo removido");
                         return true;
                     } else {
                         System.out.println("Digite adicionar ou remover");
@@ -124,12 +131,14 @@ public class App {
                         String novoConteudo = teclado.nextLine();
                         var conteudoAntigo = this.banco.get(codigo);
                         conteudoAntigo.adicionaConteudo(novoConteudo);
+                        System.out.println("Conteúdo adicionado");
                         return true;
                     } else if (testeConteudo.equals("remover")) {
                         System.out.println("Digite o conteúdo a ser removido: ");
                         String conteudoRemovido = teclado.nextLine();
                         var conteudoAtual = this.banco.get(codigo);
                         conteudoAtual.removeConteudo(conteudoRemovido);
+                        System.out.println("Conteúdo removido");
                         return true;
                     } else {
                         System.out.println("Digite adicionar ou remover");
