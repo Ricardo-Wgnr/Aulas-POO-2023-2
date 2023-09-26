@@ -79,6 +79,8 @@ public class App {
                     System.out.println("Digite o novo código: ");
                     String novoCodigo = teclado.nextLine();
                     codigoAntigo.setCodigo(novoCodigo);
+                    this.banco.remove(codigo, codigoAntigo);
+                    this.banco.put(novoCodigo, codigoAntigo);
                     System.out.println("Código alterado");
                     return true;
                 case "sigla":
