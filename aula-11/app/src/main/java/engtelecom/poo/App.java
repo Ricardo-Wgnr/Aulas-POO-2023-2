@@ -48,6 +48,7 @@ public class App {
         app.criarJogador("Computador");
 
         app.comprarCarro(app.jogadores.get(0));
+        app.comprarMotor(app.jogadores.get(0));
 
     }
     
