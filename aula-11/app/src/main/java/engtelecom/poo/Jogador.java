@@ -66,4 +66,11 @@ public class Jogador {
         return false;
     }
 
+    public boolean venderCarro(int posicao) {
+        if (garagem.size() == 0 || (posicao >= garagem.size()) || (posicao < 0)) {
+            return false;
+        }
+        garagem.remove(posicao);
+        return true;
+    }
 }

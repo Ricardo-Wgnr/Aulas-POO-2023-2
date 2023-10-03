@@ -23,8 +23,8 @@ public class App {
         this.jogadores.add(j);
     }
 
-    public void comprarCarro (Jogador j) {
-        if (j.comprarCarro(new Carro("fusca", new Motor(400, 4)))) {
+    public void comprarCarro (Jogador j, Carro c) {
+        if (j.comprarCarro(c)) {
             System.out.println("Carro comprado com sucesso");
         } else {
             System.out.println("Garagem cheia");
@@ -40,15 +40,39 @@ public class App {
         }
     }
 
+    public void venderCarro (Jogador j, int posicao) {
+
+        j.venderCarro(posicao);
+
+    }
+
     public static void main (String[] args) {
 
         App app = new App();
 
         app.criarJogador("Juca");
+
+        app.comprarMotor(app.jogadores.get(0));
+
         app.criarJogador("Computador");
 
-        app.comprarCarro(app.jogadores.get(0));
-        app.comprarMotor(app.jogadores.get(0));
+        app.comprarCarro(app.jogadores.get(0), new Carro("fusca", new Motor(300, 4)));
+        app.comprarCarro(app.jogadores.get(0), new Carro("gol", new Motor(300, 4)));
+        app.comprarCarro(app.jogadores.get(0), new Carro("celta", new Motor(300, 4)));
+
+        app.comprarCarro(app.jogadores.get(1), new Carro("uno", new Motor(300, 4)));
+        app.comprarCarro(app.jogadores.get(1), new Carro("hb20", new Motor(300, 4)));
+        app.comprarCarro(app.jogadores.get(1), new Carro("cruze", new Motor(300, 4)));
+
+
+
+        System.out.println("Antes de vender");
+
+        app.venderCarro(app.jogadores.get(0), 0);
+
+        app.jogadores.remove(0);
+
+        System.out.println("Fim");
 
     }
     
