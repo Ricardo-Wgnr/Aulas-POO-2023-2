@@ -3,11 +3,65 @@
  */
 package engtelecom.poo;
 
+import java.time.LocalDate;
+import java.util.Scanner;
+
 public class App {
+
+    private Agenda agenda;
+
+    public void menu () {
+
+        int opcao;
+        do {
+            System.out.println("O que deseja fazer?");
+            System.out.println("1- Adicionar contato;");
+            System.out.println("2- Remover contato;");
+            System.out.println("3- Atualizar contato;");
+            System.out.println("4- Listar dados de um contato;");
+            System.out.println("5- Listar todos contatos;");
+            System.out.println("6- Fechar APP.");
+            Scanner teclado = new Scanner(System.in);
+            opcao = teclado.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o nome do contato:");
+                    String nome = teclado.nextLine();
+                    System.out.println("Digite o sobrenome do contato:");
+                    String sobrenome = teclado.nextLine();
+                    System.out.println("Digite a data de nascimento:");
+                    LocalDate dataNascimento;
+                    Pessoa p = new Pessoa(nome, sobrenome, dataNascimento);
+                    if (agenda.addPessoa(p)) {
+                        System.out.println("Contato adicionado com sucesso");
+                        break;
+                    }
+                    System.out.println("Falha ao adicionar contato");
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    System.out.println(agenda);
+                    break;
+                case 6:
+                    break;
+                default:
+                    System.out.println("Digite o número de uma das opções");
+                    break;
+            }
+        } while (opcao != 6);
+
+    }
 
     public static void main(String[] args) {
 
-
+        App app = new App();
+        app.menu();
 
     }
 
