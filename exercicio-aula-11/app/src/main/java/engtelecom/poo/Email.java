@@ -41,8 +41,6 @@ public class Email {
 
     @Override
     public String toString() {
-        return "Email{" +
-                "dados=" + dados +
-                '}';
+        return dados.toString();
     }
 }

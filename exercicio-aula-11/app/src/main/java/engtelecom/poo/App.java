@@ -11,6 +11,10 @@ public class App {
 
     private Agenda agenda;
 
+    public App () {
+        this.agenda = new Agenda();
+    }
+
     public void menu () {
 
         int opcao;
@@ -24,15 +28,21 @@ public class App {
             System.out.println("6- Fechar APP.");
             Scanner teclado = new Scanner(System.in);
             opcao = teclado.nextInt();
+            teclado.nextLine();
 
             switch (opcao) {
                 case 1:
                     System.out.println("Digite o nome do contato:");
                     String nome = teclado.nextLine();
-                    System.out.println("Digite o sobrenome do contato:");
+                    System.out.println("Digite o último sobrenome do contato:");
                     String sobrenome = teclado.nextLine();
-                    System.out.println("Digite a data de nascimento:");
-                    LocalDate dataNascimento;
+                    System.out.println("Digite a data do seu nascimento separada por espaços:");
+                    String data = teclado.nextLine();
+                    String[] dataSeparada = data.split(" ");
+                    LocalDate dataNascimento =
+                            LocalDate.of(Integer.parseInt(dataSeparada[2]),
+                                    Integer.parseInt(dataSeparada[1]),
+                                    Integer.parseInt(dataSeparada[0]));
                     Pessoa p = new Pessoa(nome, sobrenome, dataNascimento);
                     if (agenda.addPessoa(p)) {
                         System.out.println("Contato adicionado com sucesso");
@@ -41,10 +51,117 @@ public class App {
                     System.out.println("Falha ao adicionar contato");
                     break;
                 case 2:
+                    System.out.println("Digite o nome e sobrenome da pessoa que deseja remover:");
+                    String nomeCompleto = teclado.nextLine();
+                    String[] nomeSeparado = nomeCompleto.split(" ");
+                    if (agenda.removePessoa(nomeSeparado[0], nomeSeparado[1])) {
+                        System.out.println("Contato removido");
+                    } else {
+                        System.out.println("Contato inexistente");
+                    }
                     break;
                 case 3:
+                    int dado;
+                    System.out.println("Qual dado deseja atualizar?");
+                    System.out.println("1- Email;");
+                    System.out.println("2- Telefone.");
+                    dado = teclado.nextInt();
+                    teclado.nextLine();
+                    if (dado == 1) {
+                        System.out.println("Deseja adicionar, remover ou atualizar um email?");
+                        String opcaoEmail = teclado.nextLine();
+                        if (opcaoEmail.equals("adicionar")) {
+                            System.out.println("Digite o Index do contato que deseja adicionar o email:");
+                            int pIndex = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("Digite o rótulo do email que deseja adicionar:");
+                            String rotulo = teclado.nextLine();
+                            System.out.println("Digite o email que deseja adicionar:");
+                            String email = teclado.nextLine();
+                            if (agenda.addEmail(rotulo, email, pIndex)) {
+                                System.out.println("Email adicionado com sucesso");
+                            } else {
+                                System.out.println("Não foi possível adicionar o email");
+                            }
+                        } else if (opcaoEmail.equals("remover")) {
+                            System.out.println("Digite o Index do contato que deseja remover o email:");
+                            int pIndex = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("Digite o rótulo do email que deseja remover:");
+                            String rotulo = teclado.nextLine();
+                            if (agenda.removeEmail(rotulo, pIndex)) {
+                                System.out.println("Email removido com sucesso");
+                            } else {
+                                System.out.println("Não foi possível remover o email");
+                            }
+                        } else if (opcaoEmail.equals("atualizar")) {
+                            System.out.println("Digite o Index do contato que deseja atualizar o email:");
+                            int pIndex = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("Digite o rótulo do email que deseja atualizar:");
+                            String rotulo = teclado.nextLine();
+                            System.out.println("Digite o novo email:");
+                            String novoEmail = teclado.nextLine();
+                            if (agenda.updateEmail(rotulo, novoEmail, pIndex)) {
+                                System.out.println("Email atualizado com sucesso");
+                            } else {
+                                System.out.println("Não foi possível atualizar o email");
+                            }
+                        } else {
+                            System.out.println("Digite atualizar, remover ou adicionar");
+                        }
+                    } else if (dado == 2) {
+                        System.out.println("Deseja adicionar, remover ou atualizar um telefone?");
+                        String opcaoTelefone = teclado.nextLine();
+                        if (opcaoTelefone.equals("adicionar")) {
+                            System.out.println("Digite o Index do contato que deseja adicionar o telefone:");
+                            int pIndex = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("Digite o rótulo do telefone que deseja adicionar:");
+                            String rotulo = teclado.nextLine();
+                            System.out.println("Digite o telefone que deseja adicionar:");
+                            String telefone = teclado.nextLine();
+                            if (agenda.addTelefone(rotulo, telefone, pIndex)) {
+                                System.out.println("Telefone adicionado com sucesso");
+                            } else {
+                                System.out.println("Não foi possível adicionar o telefone");
+                            }
+                        } else if (opcaoTelefone.equals("remover")) {
+                            System.out.println("Digite o Index do contato que deseja remover o telefone:");
+                            int pIndex = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("Digite o rótulo do telefone que deseja remover:");
+                            String rotulo = teclado.nextLine();
+                            if (agenda.removeTelefone(rotulo, pIndex)) {
+                                System.out.println("Telefone removido com sucesso");
+                            } else {
+                                System.out.println("Não foi possível remover o telefone");
+                            }
+                        } else if (opcaoTelefone.equals("atualizar")) {
+                            System.out.println("Digite o Index do contato que deseja atualizar o telefone:");
+                            int pIndex = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("Digite o rótulo do telefone que deseja atualizar:");
+                            String rotulo = teclado.nextLine();
+                            System.out.println("Digite o novo telefone:");
+                            String novoTelefone = teclado.nextLine();
+                            if (agenda.updateTelefone(rotulo, novoTelefone, pIndex)) {
+                                System.out.println("Telefone atualizado com sucesso");
+                            } else {
+                                System.out.println("Não foi possível atualizar o telefone");
+                            }
+                        } else {
+                            System.out.println("Digite atualizar, remover ou adicionar");
+                        }
+                    } else {
+                        System.out.println("Digite 1 ou 2 para a opção desejada");
+                    }
                     break;
                 case 4:
+                    System.out.println("Digite o Index do contato que deseja exibir os dados:");
+                    int pIndex = teclado.nextInt();
+                    teclado.nextLine();
+                    System.out.println(agenda.getContatos().get(pIndex));
                     break;
                 case 5:
                     System.out.println(agenda);

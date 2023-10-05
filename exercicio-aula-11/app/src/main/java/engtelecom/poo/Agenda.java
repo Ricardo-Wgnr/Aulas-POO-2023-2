@@ -50,8 +50,18 @@ public class Agenda {
 
     @Override
     public String toString() {
-        return "Agenda{" +
-                "contatos=" + contatos +
-                '}';
+
+        StringBuilder sb = new StringBuilder("Agenda{contatos=\n");
+        for (int i = 0; i < contatos.size(); i++) {
+            sb.append(i);
+            sb.append("- ");
+            sb.append(contatos.get(i));
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public ArrayList<Pessoa> getContatos() {
+        return contatos;
     }
 }

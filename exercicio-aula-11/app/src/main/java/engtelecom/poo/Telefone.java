@@ -44,9 +44,7 @@ public class Telefone {
 
     @Override
     public String toString() {
-        return "Telefone{" +
-                "dados=" + dados +
-                '}';
+        return dados.toString();
     }
 
     public String formatar (String n) {
