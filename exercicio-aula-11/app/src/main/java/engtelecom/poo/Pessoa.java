@@ -19,27 +19,28 @@ public class Pessoa {
     }
 
     public boolean addTelefone (String r, String n) {
-        return true;
+        return telefones.add(r, n);
     }
 
     public boolean addEmail (String r, String e) {
-        return true;
+        return emails.add(r, e);
+
     }
 
     public boolean removeTelefone (String r) {
-        return true;
+        return (telefones.remove(r));
     }
 
     public boolean removeEmail (String r) {
-        return true;
+        return emails.remove(r);
     }
 
     public boolean updateTelefone (String r, String n) {
-        return true;
+        return telefones.update(r, n);
     }
 
     public boolean updateEmail (String r ,String e) {
-        return true;
+        return emails.update(r, e);
     }
 
     @Override
@@ -51,5 +52,13 @@ public class Pessoa {
                 ", telefones=" + telefones +
                 ", emails=" + emails +
                 '}';
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
     }
 }

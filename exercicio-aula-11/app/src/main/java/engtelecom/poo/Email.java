@@ -11,15 +11,32 @@ public class Email {
     }
 
     public boolean add (String r, String e) {
-        return true;
+
+        String eR = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+        if (!dados.containsKey(r)) {
+            if (e.matches(eR)) {
+                dados.put(r, e);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean remove (String r) {
-        return true;
+        if (dados.containsKey(r)) {
+            dados.remove(r);
+            return true;
+        }
+        return false;
     }
 
     public boolean update (String r, String e) {
-        return true;
+
+        if (dados.containsKey(r)) {
+            dados.put(r, e);
+            return true;
+        }
+        return false;
     }
 
     @Override
