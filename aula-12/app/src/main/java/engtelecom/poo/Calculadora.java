@@ -27,7 +27,21 @@ public class Calculadora {
 
         // TODO implementar esse método
 
-        return "";
+        if (Math.abs(ladoA - ladoB) <= ladoC && (ladoA + ladoB) > ladoC
+                && Math.abs(ladoA - ladoC) <= ladoB && (ladoA + ladoC) > ladoB
+                && Math.abs(ladoB - ladoC) <= ladoA && (ladoB + ladoC) > ladoA) {
+
+            if (ladoA == ladoB && ladoA == ladoC) {
+                return "Equilátero";
+            } else if (ladoA == ladoB || ladoA == ladoC || ladoB == ladoC) {
+                return "Isósceles";
+            } else {
+                return "Escaleno";
+            }
+
+        } else {
+            return "Não é um triângulo";
+        }
 
     }
 

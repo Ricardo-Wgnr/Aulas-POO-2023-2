@@ -63,6 +63,9 @@ public class CalculadoraTest {
         assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 1, 5));
         assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 5, 1));
         assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(5, 1, 1));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(0, 2, 3));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 0, 3));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 2, 0));
 
     }
 }
