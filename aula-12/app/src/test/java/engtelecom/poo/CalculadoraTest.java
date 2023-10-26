@@ -2,7 +2,6 @@ package engtelecom.poo;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class CalculadoraTest {
 
@@ -66,6 +65,13 @@ public class CalculadoraTest {
         assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(0, 2, 3));
         assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 0, 3));
         assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 2, 0));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(0, 0, 0));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(0, 0, 1));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(0, 1, 0));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 0, 0));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 1, 0));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(1, 0, 1));
+        assertEquals("Não é um triângulo", Calculadora.tipoDoTriangulo(0, 1, 1));
 
     }
 }

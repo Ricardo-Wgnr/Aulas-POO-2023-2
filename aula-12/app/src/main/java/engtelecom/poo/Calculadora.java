@@ -25,8 +25,6 @@ public class Calculadora {
      */
     public static String tipoDoTriangulo(int ladoA, int ladoB, int ladoC) {
 
-        // TODO implementar esse método
-
         if (Math.abs(ladoA - ladoB) <= ladoC && (ladoA + ladoB) > ladoC
                 && Math.abs(ladoA - ladoC) <= ladoB && (ladoA + ladoC) > ladoB
                 && Math.abs(ladoB - ladoC) <= ladoA && (ladoB + ladoC) > ladoA) {
