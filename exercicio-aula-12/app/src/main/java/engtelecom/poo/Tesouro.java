@@ -2,15 +2,28 @@ package engtelecom.poo;
 
 public class Tesouro {
 
-    private int largura;
-    private int altura;
-    private int x;
-    private int y;
+    public static final int LARGURA = 10;
+    public static final int ALTURA = 10;
+
+    private int posicaoX;
+    private int posicaoY;
     private int valor;
 
-    public Tesouro(int x, int y, int valor) {
-        this.x = x;
-        this.y = y;
+    public Tesouro(int posicaoX, int posicaoY, int valor) {
+        this.posicaoX = posicaoX;
+        this.posicaoY = posicaoY;
         this.valor = valor;
+    }
+
+    public int getPosicaoX() {
+        return posicaoX;
+    }
+
+    public int getPosicaoY() {
+        return posicaoY;
+    }
+
+    public int getValor() {
+        return valor;
     }
 }
