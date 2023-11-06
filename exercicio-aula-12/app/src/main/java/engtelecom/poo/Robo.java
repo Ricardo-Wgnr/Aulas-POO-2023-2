@@ -7,6 +7,10 @@ public class Robo {
 
     public static final int LARGURA = 20;
     public static final int ALTURA = 20;
+    public static final int CIMA = 1;
+    public static final int DIREITA = 2;
+    public static final int BAIXO = 3;
+    public static final int ESQUERDA = 4;
 
     private int velocidadeX;
     private int velocidadeY;
@@ -27,7 +31,7 @@ public class Robo {
         this.velocidadeX = velocidadeX;
         this.velocidadeY = velocidadeY;
 
-        this.posicionarRoboNoMapa(this.mapa);
+        this.posicionarRoboNoMapa();
 
         this.capacidadeMochila = capacidadeMochila;
         this.pontuacao = 0;
@@ -35,27 +39,40 @@ public class Robo {
     }
 
     //colocar robo dentro de um mapa em uma coordenada aleatória
-    public boolean posicionarRoboNoMapa(Area mapa) {
-        // TODO implementar
-
-        if ((this.LARGURA*this.ALTURA) < (this.mapa.getAltura()*this.mapa.getLargura())) {
-            // while (?) {}
+    public boolean posicionarRoboNoMapa() {
+        if ((Robo.LARGURA*Robo.ALTURA) < (this.mapa.getAltura()*this.mapa.getLargura())) {
             Random x = new Random();
             Random y = new Random();
             int posicaoX = x.nextInt(this.mapa.getLargura());
             int posicaoY = y.nextInt(this.mapa.getAltura());
+            while (((posicaoY - Robo.ALTURA) < 0) || ((posicaoX + Robo.LARGURA) > this.mapa.getLargura())) {
+                posicaoY = y.nextInt(this.mapa.getAltura());
+                posicaoX = x.nextInt(this.mapa.getLargura());
+            }
+            this.posicaoX = posicaoX;
+            this.posicaoY = posicaoY;
+            return true;
         }
-
         return false;
     }
 
     public boolean adicionarTesouro(Tesouro t) {
-        // TODO implementar
+        if (this.mochila.size() < this.capacidadeMochila) {
+            this.mochila.add(t);
+            return true;
+        }
         return false;
     }
 
     public Tesouro removerTesouro(Tesouro t) {
-        // TODO implementar
+        if (!this.mochila.isEmpty()) {
+            for (int i = 0; i < this.mochila.size(); i++) {
+                if (this.mochila.get(i).equals(t)) {
+                    this.mochila.remove(t);
+                    return t;
+                }
+            }
+        }
         return null;
     }
 
@@ -65,9 +82,63 @@ public class Robo {
     }
 
     public boolean movimentar(int direcao) {
-        // TODO implementar, robo pode encostar na borda, mas nao ultrapassar, sempre que ele se deslocar,
-        //  retorna true, mesmo que em numero menor de casas
-        return false;
-    }
+        if (direcao == CIMA) {
+            int teste = this.velocidadeY + this.posicaoY;
+            if (teste <= this.mapa.getAltura()) {
+                this.posicaoY = teste;
+                return true;
+            } else {
+                int diferenca = teste - this.mapa.getAltura();
+                this.posicaoY = teste - diferenca;
+                if (diferenca < this.velocidadeY) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
+        } else if (direcao == DIREITA) {
+            int teste = this.velocidadeX + this.posicaoX;
+            if (teste <= this.mapa.getLargura()) {
+                this.posicaoX = teste;
+                return true;
+            } else {
+                int diferenca = teste - this.mapa.getLargura();
+                this.posicaoX = teste - diferenca;
+                if (diferenca < this.velocidadeX) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        } else if (direcao == BAIXO) {
+            int teste = this.posicaoY - velocidadeY;
+            if (teste >= 0) {
+                this.posicaoY = teste;
+                return true;
+            } else {
+                this.posicaoY = 0;
+                if (Math.abs(teste) < this.velocidadeY) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        } else {
+            int teste = this.posicaoX - velocidadeX;
+            if (teste >= 0) {
+                this.posicaoX = teste;
+                return true;
+            } else {
+                this.posicaoX = 0;
+                if (Math.abs(teste) < this.velocidadeX) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
 }

@@ -26,4 +26,5 @@ public class Tesouro {
     public int getValor() {
         return valor;
     }
+
 }
