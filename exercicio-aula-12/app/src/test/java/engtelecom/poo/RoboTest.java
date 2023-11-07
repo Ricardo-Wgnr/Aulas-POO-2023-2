@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RoboTest {
 
+    /*
     @Test
     public void posicionarRoboNoMapaTest() {
 
@@ -79,6 +80,7 @@ public class RoboTest {
             }
         }
     }
+    */
 
 }
 

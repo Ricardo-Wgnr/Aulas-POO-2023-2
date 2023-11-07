@@ -25,9 +25,12 @@ public class Robo {
 
     private Area mapa;
 
-    public Robo(Area mapa, int velocidadeX, int velocidadeY, int capacidadeMochila) {
+    public Robo(Area mapa, int posicaoX, int posicaoY, int velocidadeX, int velocidadeY, int capacidadeMochila) {
         this.mapa = mapa;
 
+        // TODO garantir que x e y esta dentro dos limites do mapa, se nao estiver, posicionar robo no centro do mapa
+        this.posicaoX = posicaoX;
+        this.posicaoY = posicaoY;
         this.velocidadeX = velocidadeX;
         this.velocidadeY = velocidadeY;
 
@@ -38,7 +41,6 @@ public class Robo {
         this.mochila = new ArrayList<>();
     }
 
-    //colocar robo dentro de um mapa em uma coordenada aleatória
     public boolean posicionarRoboNoMapa() {
         if ((Robo.LARGURA*Robo.ALTURA) < (this.mapa.getAltura()*this.mapa.getLargura())) {
             Random x = new Random();
@@ -51,14 +53,6 @@ public class Robo {
             }
             this.posicaoX = posicaoX;
             this.posicaoY = posicaoY;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean adicionarTesouro(Tesouro t) {
-        if (this.mochila.size() < this.capacidadeMochila) {
-            this.mochila.add(t);
             return true;
         }
         return false;
@@ -79,6 +73,21 @@ public class Robo {
     public int pontuacao() {
         // TODO implementar
         return -1;
+    }
+
+    public boolean mochilaCheia() {
+        return this.mochila.size() == this.capacidadeMochila;
+    }
+
+    public boolean cavar () {
+        if (!mochilaCheia()) {
+            Tesouro t = this.mapa.coletarTesouro(this.posicaoX, this.posicaoY);
+            if (t != null) {
+                this.mochila.add(t);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean movimentar(int direcao) {
