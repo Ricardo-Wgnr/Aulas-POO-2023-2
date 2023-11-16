@@ -1,5 +1,7 @@
 package engtelecom.poo;
 
+import edu.princeton.cs.algs4.Draw;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,13 +11,13 @@ public class Area {
     private int largura;
 
     private int totalDeTesouros;
-    private ArrayList<Tesouro> tesouros;
+    private ArrayList<Elemento> elementos;
 
     public Area(int altura, int largura, int totalDeTesouros) {
         this.altura = altura;
         this.largura = largura;
         this.totalDeTesouros = totalDeTesouros;
-        this.tesouros = new ArrayList<>();
+        this.elementos = new ArrayList<>();
         this.posicionaTesouros();
     }
 
@@ -33,7 +35,7 @@ public class Area {
                     posicaoX = x.nextInt(this.largura);
                     valor = v.nextInt(50);
                 }
-                this.tesouros.add(new Tesouro(posicaoX, posicaoY, valor));
+                this.elementos.add(new Tesouro(posicaoX, posicaoY, valor));
             }
             return true;
         }
@@ -41,12 +43,15 @@ public class Area {
     }
 
     public Tesouro coletarTesouro(int x, int y) {
+
+        // TODO mudar com base no retangulo intersecta
+
         boolean intersectaX = false;
         boolean intersectaY = false;
         for (int i = 0; i < this.totalDeTesouros; i++) {
             for (int j = 0; j < Robo.LARGURA; j++) {
                 for (int k = 0; k < Tesouro.LARGURA; k++) {
-                    if ((x + j) == (this.tesouros.get(i).getPosicaoX() + k)) {
+                    if ((x + j) == (this.elementos.get(i).getPosicaoX() + k)) {
                         intersectaX = true;
                         break;
                     }
@@ -56,7 +61,7 @@ public class Area {
             }
             for (int j = 0; j < Robo.ALTURA; j++) {
                 for (int k = 0; k < Tesouro.ALTURA; k++) {
-                    if ((x - j) == (this.tesouros.get(i).getPosicaoX() - k)) {
+                    if ((x - j) == (this.elementos.get(i).getPosicaoX() - k)) {
                         intersectaY = true;
                         break;
                     }
@@ -65,7 +70,7 @@ public class Area {
                 if (intersectaY) break;
             }
             if (intersectaX && intersectaY) {
-                return this.tesouros.get(i);
+                return this.elementos.get(i);
             }
         }
         return null;
@@ -80,6 +85,11 @@ public class Area {
     }
 
     public ArrayList<Tesouro> getTesouros() {
-        return tesouros;
+        return elementos;
     }
+
+    public void desenhar(Draw desenho){
+        elementos.forEach(e->e.desenhar(desenho));
+    }
+
 }

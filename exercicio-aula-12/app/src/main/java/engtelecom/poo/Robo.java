@@ -1,9 +1,11 @@
 package engtelecom.poo;
 
+import edu.princeton.cs.algs4.Draw;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Robo {
+public class Robo extends Elemento{
 
     public static final int LARGURA = 20;
     public static final int ALTURA = 20;
@@ -20,17 +22,13 @@ public class Robo {
 
     private int pontuacao;
 
-    private int posicaoX;
-    private int posicaoY;
-
     private Area mapa;
 
     public Robo(Area mapa, int posicaoX, int posicaoY, int velocidadeX, int velocidadeY, int capacidadeMochila) {
+
+        super(posicaoX,posicaoY);
         this.mapa = mapa;
 
-        // TODO garantir que x e y esta dentro dos limites do mapa, se nao estiver, posicionar robo no centro do mapa
-        this.posicaoX = posicaoX;
-        this.posicaoY = posicaoY;
         this.velocidadeX = velocidadeX;
         this.velocidadeY = velocidadeY;
 
@@ -42,6 +40,9 @@ public class Robo {
     }
 
     public boolean posicionarRoboNoMapa() {
+
+        // TODO nao posiciona mais aleatoriamente, verificar se as coordenadas sao validas
+
         if ((Robo.LARGURA*Robo.ALTURA) < (this.mapa.getAltura()*this.mapa.getLargura())) {
             Random x = new Random();
             Random y = new Random();
@@ -56,6 +57,12 @@ public class Robo {
             return true;
         }
         return false;
+    }
+
+    public void desenhar(Draw desenho) {
+
+        desenho.picture(posicaoX,posicaoY, "robotDim.png");
+
     }
 
     public Tesouro removerTesouro(Tesouro t) {

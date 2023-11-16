@@ -6,6 +6,7 @@ package engtelecom.poo;
 import edu.princeton.cs.algs4.Draw;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class App {
 
@@ -35,44 +36,59 @@ public class App {
 
         App app = new App();
 
-        int x = 350;
-        int y = 350;
-        int raio = 10;
-        int vx = 1;
-        int vy = 2;
+        Area mapa = new Area(600,600,3);
+
+        ArrayList<Elemento> elementos = new ArrayList<>();
+
+        elementos.add(new Robo(mapa,300,300,2,1,3));
+//        int x = 350;
+//        int y = 350;
+//        int raio = 10;
+//        int vx = 1;
+//        int vy = 2;
 
         while (true) {
-            app.desenharQuadrado(300, 300, 20);
-            app.desenharCirculo(x, y,raio);
-
-            x+= vx;
-            y+= vy;
-
-            if (x+raio > 600 || x-raio < 0) {
-                vx *= -1;
-            }
-
-            if (y+raio > 600 || y-raio < 0) {
-                vy *= -1;
-            }
-
-            Rectangle r = new Rectangle(280, 280, 40, 40);
-            Rectangle b = new Rectangle(x-raio, y-raio, 2*raio, 2*raio);
-
-            if (r.intersects(b)) {
-                if (x > 320 || x < 280) {
-                    vx *= -1;
-                }
-                if (y > 320 || y < 280)  {
-                    vy *= -1;
+            // Atualiza as coordenadas dos elementos
+            for (var e: elementos) {
+                if (e instanceof Robo) {
+                    Robo r = (Robo) e;
+                    r.movimentar(1);
                 }
             }
 
+            // Desenha os elementos com novas coordenadas
+            elementos.forEach(e->e.desenhar(app.desenho));
+            mapa.desenhar(app.desenho);
 
             app.desenho.pause(10);
             app.desenho.show();
             app.desenho.clear(Color.WHITE);
 
+//            app.desenharQuadrado(300, 300, 20);
+//            app.desenharCirculo(x, y,raio);
+//
+//            x+= vx;
+//            y+= vy;
+//
+//            if (x+raio > 600 || x-raio < 0) {
+//                vx *= -1;
+//            }
+//
+//            if (y+raio > 600 || y-raio < 0) {
+//                vy *= -1;
+//            }
+//
+//            Rectangle r = new Rectangle(280, 280, 40, 40);
+//            Rectangle b = new Rectangle(x-raio, y-raio, 2*raio, 2*raio);
+//
+//            if (r.intersects(b)) {
+//                if (x > 320 || x < 280) {
+//                    vx *= -1;
+//                }
+//                if (y > 320 || y < 280)  {
+//                    vy *= -1;
+//                }
+//            }
         }
 
     }
