@@ -12,10 +12,9 @@ public abstract class Elemento {
 
 
     public Elemento(int posicaoX, int posicaoY) {
-        // TODO garantir que a posicao x e y estao dentro dos limites do mapa
         // se nao estiver, posiciona o robo no centro do mapa
-        this.posicaoX = posicaoX;
-        this.posicaoY = posicaoY;
+        this.setPosicaoX(posicaoX);
+        this.setPosicaoY(posicaoY);
     }
 
 
@@ -26,4 +25,21 @@ public abstract class Elemento {
         return false;
     }
 
+    public boolean setPosicaoX(int posicaoX) {
+        if ((posicaoX >= App.MIN_X) && (posicaoX <= App.MAX_X)) {
+            this.posicaoX = posicaoX;
+            return true;
+        }
+        this.posicaoX = App.MAX_X/2;
+        return false;
+    }
+
+    public boolean setPosicaoY(int posicaoY) {
+        if ((posicaoY >= App.MIN_Y) && (posicaoY <= App.MAX_Y)) {
+            this.posicaoY = posicaoY;
+            return true;
+        }
+        this.posicaoY = App.MAX_Y/2;
+        return false;
+    }
 }

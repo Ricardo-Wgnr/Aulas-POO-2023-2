@@ -2,10 +2,13 @@ package engtelecom.poo;
 
 import edu.princeton.cs.algs4.Draw;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Area {
+
+    public static final int TOTAL_PAREDES = 3;
 
     private int altura;
     private int largura;
@@ -18,11 +21,11 @@ public class Area {
         this.largura = largura;
         this.totalDeTesouros = totalDeTesouros;
         this.elementos = new ArrayList<>();
-        this.posicionaTesouros();
+        this.posicionaElementos();
     }
 
-    public boolean posicionaTesouros() {
-        if ((this.altura*this.largura) > (Tesouro.ALTURA * Tesouro.LARGURA)) {
+    public boolean posicionaElementos() {
+        if (((this.altura*this.largura) > (Tesouro.ALTURA * Tesouro.LARGURA)) && ((this.altura*this.largura > Parede.ALTURA*Parede.LARGURA))) {
             for (int i = 0; i < this.totalDeTesouros; i++) {
                 Random x = new Random();
                 Random y = new Random();
@@ -37,40 +40,47 @@ public class Area {
                 }
                 this.elementos.add(new Tesouro(posicaoX, posicaoY, valor));
             }
+            for (int i = 0; i < TOTAL_PAREDES; i++) {
+                Random x = new Random();
+                Random y = new Random();
+                Random v = new Random();
+                int posicaoX = x.nextInt(this.largura);
+                int posicaoY = y.nextInt(this.altura);
+                while (((posicaoY - Tesouro.ALTURA) < 0) || ((posicaoX + Tesouro.LARGURA) > this.largura)) {
+                    posicaoY = y.nextInt(this.altura);
+                    posicaoX = x.nextInt(this.largura);
+                }
+                this.elementos.add(new Parede(posicaoX, posicaoY));
+            }
+
             return true;
         }
         return false;
     }
 
+    public boolean verificaParede (int x, int y) {
+        Rectangle robo = new Rectangle(x, y, Robo.LARGURA, Robo.ALTURA);
+
+        for (int k = 0; k < this.elementos.size(); k++) {
+            if (elementos.get(k) instanceof Parede) {
+                Rectangle parede = new Rectangle(this.elementos.get(k).posicaoX, this.elementos.get(k).posicaoY, Parede.LARGURA, Parede.ALTURA);
+                if (robo.intersects(parede)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Tesouro coletarTesouro(int x, int y) {
+        Rectangle robo = new Rectangle(x, y, Robo.LARGURA, Robo.ALTURA);
 
-        // TODO mudar com base no retangulo intersecta
-
-        boolean intersectaX = false;
-        boolean intersectaY = false;
         for (int i = 0; i < this.totalDeTesouros; i++) {
-            for (int j = 0; j < Robo.LARGURA; j++) {
-                for (int k = 0; k < Tesouro.LARGURA; k++) {
-                    if ((x + j) == (this.elementos.get(i).getPosicaoX() + k)) {
-                        intersectaX = true;
-                        break;
-                    }
-                    if (intersectaX) break;
+            if (this.elementos.get(i) instanceof  Tesouro) {
+                Rectangle tesouro = new Rectangle(this.elementos.get(i).posicaoX,this.elementos.get(i).posicaoY, Tesouro.LARGURA, Tesouro.ALTURA);
+                if (robo.intersects(tesouro)) {
+                    return (Tesouro) this.elementos.get(i);
                 }
-                if (intersectaX) break;
-            }
-            for (int j = 0; j < Robo.ALTURA; j++) {
-                for (int k = 0; k < Tesouro.ALTURA; k++) {
-                    if ((x - j) == (this.elementos.get(i).getPosicaoX() - k)) {
-                        intersectaY = true;
-                        break;
-                    }
-                    if (intersectaY) break;
-                }
-                if (intersectaY) break;
-            }
-            if (intersectaX && intersectaY) {
-                return this.elementos.get(i);
             }
         }
         return null;
@@ -84,7 +94,7 @@ public class Area {
         return largura;
     }
 
-    public ArrayList<Tesouro> getTesouros() {
+    public ArrayList<Elemento> getElementos() {
         return elementos;
     }
 

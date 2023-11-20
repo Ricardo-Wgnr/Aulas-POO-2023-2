@@ -7,8 +7,14 @@ import edu.princeton.cs.algs4.Draw;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
+
+    public static final int MAX_X = 600;
+    public static final int MIN_X = 0;
+    public static final int MAX_Y = 600;
+    public static final int MIN_Y = 0;
 
     private Area area;
     private Robo robo;
@@ -16,8 +22,8 @@ public class App {
 
     public App () {
         this.desenho = new Draw();
-        this.desenho.setXscale(0,600);
-        this.desenho.setYscale(0,600);
+        this.desenho.setXscale(MIN_X,MAX_X);
+        this.desenho.setYscale(MIN_Y,MAX_Y);
         this.desenho.enableDoubleBuffering();
         this.desenho.setDefaultCloseOperation(3);
     }
@@ -36,11 +42,11 @@ public class App {
 
         App app = new App();
 
-        Area mapa = new Area(600,600,3);
+        Area mapa = new Area(MAX_X,MAX_Y,3);
 
         ArrayList<Elemento> elementos = new ArrayList<>();
 
-        elementos.add(new Robo(mapa,300,300,2,1,3));
+        elementos.add(new Robo(mapa,300,0,30,30,3));
 //        int x = 350;
 //        int y = 350;
 //        int raio = 10;
@@ -50,9 +56,16 @@ public class App {
         while (true) {
             // Atualiza as coordenadas dos elementos
             for (var e: elementos) {
+                System.out.println("w, a, s, d = direções;");
+                System.out.println("x = cavar");
                 if (e instanceof Robo) {
                     Robo r = (Robo) e;
-                    r.movimentar(1);
+                        String direcao = new Scanner(System.in).nextLine();
+                        if (direcao.equals("w")) r.movimentar(Robo.CIMA);
+                        if (direcao.equals("s")) r.movimentar(Robo.BAIXO);
+                        if (direcao.equals("a")) r.movimentar(Robo.ESQUERDA);
+                        if (direcao.equals("d")) r.movimentar(Robo.DIREITA);
+                        if (direcao.equals("x")) r.cavar();
                 }
             }
 

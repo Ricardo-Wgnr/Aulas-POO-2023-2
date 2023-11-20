@@ -25,39 +25,34 @@ public class Robo extends Elemento{
     private Area mapa;
 
     public Robo(Area mapa, int posicaoX, int posicaoY, int velocidadeX, int velocidadeY, int capacidadeMochila) {
-
         super(posicaoX,posicaoY);
         this.mapa = mapa;
 
         this.velocidadeX = velocidadeX;
         this.velocidadeY = velocidadeY;
 
-        this.posicionarRoboNoMapa();
-
         this.capacidadeMochila = capacidadeMochila;
         this.pontuacao = 0;
         this.mochila = new ArrayList<>();
     }
 
-    public boolean posicionarRoboNoMapa() {
-
-        // TODO nao posiciona mais aleatoriamente, verificar se as coordenadas sao validas
-
-        if ((Robo.LARGURA*Robo.ALTURA) < (this.mapa.getAltura()*this.mapa.getLargura())) {
-            Random x = new Random();
-            Random y = new Random();
-            int posicaoX = x.nextInt(this.mapa.getLargura());
-            int posicaoY = y.nextInt(this.mapa.getAltura());
-            while (((posicaoY - Robo.ALTURA) < 0) || ((posicaoX + Robo.LARGURA) > this.mapa.getLargura())) {
-                posicaoY = y.nextInt(this.mapa.getAltura());
-                posicaoX = x.nextInt(this.mapa.getLargura());
-            }
-            this.posicaoX = posicaoX;
-            this.posicaoY = posicaoY;
-            return true;
-        }
-        return false;
-    }
+//    public boolean posicionarRoboNoMapa() {
+//
+//        if ((Robo.LARGURA*Robo.ALTURA) < (this.mapa.getAltura()*this.mapa.getLargura())) {
+//            Random x = new Random();
+//            Random y = new Random();
+//            int posicaoX = x.nextInt(this.mapa.getLargura());
+//            int posicaoY = y.nextInt(this.mapa.getAltura());
+//            while (((posicaoY - Robo.ALTURA) < 0) || ((posicaoX + Robo.LARGURA) > this.mapa.getLargura())) {
+//                posicaoY = y.nextInt(this.mapa.getAltura());
+//                posicaoX = x.nextInt(this.mapa.getLargura());
+//            }
+//            this.posicaoX = posicaoX;
+//            this.posicaoY = posicaoY;
+//            return true;
+//        }
+//        return false;
+//    }
 
     public void desenhar(Draw desenho) {
 
@@ -91,6 +86,7 @@ public class Robo extends Elemento{
             Tesouro t = this.mapa.coletarTesouro(this.posicaoX, this.posicaoY);
             if (t != null) {
                 this.mochila.add(t);
+                this.mapa.getElementos().remove(t);
                 return true;
             }
         }
@@ -98,15 +94,27 @@ public class Robo extends Elemento{
     }
 
     public boolean movimentar(int direcao) {
+        int posicaoX0 = this.posicaoX;
+        int posicaoY0 = this.posicaoY;
         if (direcao == CIMA) {
             int teste = this.velocidadeY + this.posicaoY;
             if (teste <= this.mapa.getAltura()) {
                 this.posicaoY = teste;
+                if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                    this.posicaoX = posicaoX0;
+                    this.posicaoY = posicaoY0;
+                    return false;
+                }
                 return true;
             } else {
                 int diferenca = teste - this.mapa.getAltura();
                 this.posicaoY = teste - diferenca;
                 if (diferenca < this.velocidadeY) {
+                    if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                        this.posicaoX = posicaoX0;
+                        this.posicaoY = posicaoY0;
+                        return false;
+                    }
                     return true;
                 } else {
                     return false;
@@ -117,11 +125,21 @@ public class Robo extends Elemento{
             int teste = this.velocidadeX + this.posicaoX;
             if (teste <= this.mapa.getLargura()) {
                 this.posicaoX = teste;
+                if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                    this.posicaoX = posicaoX0;
+                    this.posicaoY = posicaoY0;
+                    return false;
+                }
                 return true;
             } else {
                 int diferenca = teste - this.mapa.getLargura();
                 this.posicaoX = teste - diferenca;
                 if (diferenca < this.velocidadeX) {
+                    if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                        this.posicaoX = posicaoX0;
+                        this.posicaoY = posicaoY0;
+                        return false;
+                    }
                     return true;
                 } else {
                     return false;
@@ -132,10 +150,20 @@ public class Robo extends Elemento{
             int teste = this.posicaoY - velocidadeY;
             if (teste >= 0) {
                 this.posicaoY = teste;
+                if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                    this.posicaoX = posicaoX0;
+                    this.posicaoY = posicaoY0;
+                    return false;
+                }
                 return true;
             } else {
                 this.posicaoY = 0;
                 if (Math.abs(teste) < this.velocidadeY) {
+                    if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                        this.posicaoX = posicaoX0;
+                        this.posicaoY = posicaoY0;
+                        return false;
+                    }
                     return true;
                 } else {
                     return false;
@@ -146,10 +174,20 @@ public class Robo extends Elemento{
             int teste = this.posicaoX - velocidadeX;
             if (teste >= 0) {
                 this.posicaoX = teste;
+                if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                    this.posicaoX = posicaoX0;
+                    this.posicaoY = posicaoY0;
+                    return false;
+                }
                 return true;
             } else {
                 this.posicaoX = 0;
                 if (Math.abs(teste) < this.velocidadeX) {
+                    if (this.mapa.verificaParede(this.posicaoX, this.posicaoY)) {
+                        this.posicaoX = posicaoX0;
+                        this.posicaoY = posicaoY0;
+                        return false;
+                    }
                     return true;
                 } else {
                     return false;
