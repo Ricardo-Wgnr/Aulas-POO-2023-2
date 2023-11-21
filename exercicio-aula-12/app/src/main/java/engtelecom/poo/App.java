@@ -4,21 +4,23 @@
 package engtelecom.poo;
 
 import edu.princeton.cs.algs4.Draw;
+import edu.princeton.cs.algs4.DrawListener;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class App {
+public class App implements DrawListener {
 
     public static final int MAX_X = 600;
     public static final int MIN_X = 0;
     public static final int MAX_Y = 600;
     public static final int MIN_Y = 0;
 
-    private Area area;
-    private Robo robo;
     private Draw desenho;
+    private Robo robo;
+    private Area mapa;
 
     public App () {
         this.desenho = new Draw();
@@ -26,6 +28,9 @@ public class App {
         this.desenho.setYscale(MIN_Y,MAX_Y);
         this.desenho.enableDoubleBuffering();
         this.desenho.setDefaultCloseOperation(3);
+        this.desenho.addListener(this);
+        this.mapa = new Area(MAX_X, MAX_Y, 3);
+        this.robo = new Robo(this.mapa,300,0,1,2,10);
     }
 
     public void desenharQuadrado (int x, int y, int dimensao) {
@@ -38,44 +43,60 @@ public class App {
         desenho.filledCircle(x, y, raio);
     }
 
+    public void jogo(){
+
+        while (true) {
+            mapa.desenhar(this.desenho);
+            robo.desenhar(this.desenho);
+
+            this.desenho.pause(50);
+            this.desenho.show();
+            this.desenho.clear(Color.WHITE);
+        }
+
+    }
+
     public static void main(String[] args) {
 
         App app = new App();
 
-        Area mapa = new Area(MAX_X,MAX_Y,3);
+        app.jogo();
 
-        ArrayList<Elemento> elementos = new ArrayList<>();
-
-        elementos.add(new Robo(mapa,300,0,30,30,3));
+//        Area mapa = new Area(MAX_X,MAX_Y,3);
+//
+//        ArrayList<Elemento> elementos = new ArrayList<>();
+//
+//        elementos.add(new Robo(mapa,300,0,30,30,3));
 //        int x = 350;
 //        int y = 350;
 //        int raio = 10;
 //        int vx = 1;
 //        int vy = 2;
 
-        while (true) {
-            // Atualiza as coordenadas dos elementos
-            for (var e: elementos) {
-                System.out.println("w, a, s, d = direções;");
-                System.out.println("x = cavar");
-                if (e instanceof Robo) {
-                    Robo r = (Robo) e;
-                        String direcao = new Scanner(System.in).nextLine();
-                        if (direcao.equals("w")) r.movimentar(Robo.CIMA);
-                        if (direcao.equals("s")) r.movimentar(Robo.BAIXO);
-                        if (direcao.equals("a")) r.movimentar(Robo.ESQUERDA);
-                        if (direcao.equals("d")) r.movimentar(Robo.DIREITA);
-                        if (direcao.equals("x")) r.cavar();
-                }
-            }
-
-            // Desenha os elementos com novas coordenadas
-            elementos.forEach(e->e.desenhar(app.desenho));
-            mapa.desenhar(app.desenho);
-
-            app.desenho.pause(10);
-            app.desenho.show();
-            app.desenho.clear(Color.WHITE);
+//        while (true) {
+//            // Atualiza as coordenadas dos elementos
+//            for (var e: elementos) {
+//                if (e instanceof Robo) {
+//                    System.out.println("w, a, s, d = direções;");
+//                    System.out.println("x = cavar");
+//                    Robo r = (Robo) e;
+//                        String direcao = new Scanner(System.in).nextLine();
+//                        if (direcao.equals("w")) r.movimentar(Robo.CIMA);
+//                        if (direcao.equals("s")) r.movimentar(Robo.BAIXO);
+//                        if (direcao.equals("a")) r.movimentar(Robo.ESQUERDA);
+//                        if (direcao.equals("d")) r.movimentar(Robo.DIREITA);
+////                        if (direcao.equals("x")) r.cavar();
+//                    r.movimentar(1);
+//                }
+//            }
+//
+//            // Desenha os elementos com novas coordenadas
+//            elementos.forEach(e->e.desenhar(app.desenho));
+//            mapa.desenhar(app.desenho);
+//
+//            app.desenho.pause(10);
+//            app.desenho.show();
+//            app.desenho.clear(Color.WHITE);
 
 //            app.desenharQuadrado(300, 300, 20);
 //            app.desenharCirculo(x, y,raio);
@@ -102,7 +123,44 @@ public class App {
 //                    vy *= -1;
 //                }
 //            }
-        }
+//        }
+
+    }
+
+    @Override
+    public void mousePressed(double x, double y) {
+
+    }
+
+    @Override
+    public void mouseDragged(double v, double v1) {
+
+    }
+
+    @Override
+    public void mouseReleased(double v, double v1) {
+
+    }
+
+    @Override
+    public void mouseClicked(double v, double v1) {
+
+    }
+
+    @Override
+    public void keyTyped(char c) {
+
+    }
+
+    @Override
+    public void keyPressed(int tecla) {
+
+        this.robo.movimentar(tecla);
+
+    }
+
+    @Override
+    public void keyReleased(int tecla) {
 
     }
 }

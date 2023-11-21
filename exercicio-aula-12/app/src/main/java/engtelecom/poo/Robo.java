@@ -2,6 +2,7 @@ package engtelecom.poo;
 
 import edu.princeton.cs.algs4.Draw;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,10 +10,10 @@ public class Robo extends Elemento{
 
     public static final int LARGURA = 20;
     public static final int ALTURA = 20;
-    public static final int CIMA = 1;
-    public static final int DIREITA = 2;
-    public static final int BAIXO = 3;
-    public static final int ESQUERDA = 4;
+    public static final int CIMA = KeyEvent.VK_UP;
+    public static final int DIREITA = KeyEvent.VK_RIGHT;
+    public static final int BAIXO = KeyEvent.VK_DOWN;
+    public static final int ESQUERDA = KeyEvent.VK_LEFT;
 
     private int velocidadeX;
     private int velocidadeY;
@@ -94,6 +95,7 @@ public class Robo extends Elemento{
     }
 
     public boolean movimentar(int direcao) {
+
         int posicaoX0 = this.posicaoX;
         int posicaoY0 = this.posicaoY;
         if (direcao == CIMA) {
@@ -105,6 +107,7 @@ public class Robo extends Elemento{
                     this.posicaoY = posicaoY0;
                     return false;
                 }
+                this.cavar();
                 return true;
             } else {
                 int diferenca = teste - this.mapa.getAltura();
@@ -115,6 +118,7 @@ public class Robo extends Elemento{
                         this.posicaoY = posicaoY0;
                         return false;
                     }
+                    this.cavar();
                     return true;
                 } else {
                     return false;
@@ -130,6 +134,7 @@ public class Robo extends Elemento{
                     this.posicaoY = posicaoY0;
                     return false;
                 }
+                this.cavar();
                 return true;
             } else {
                 int diferenca = teste - this.mapa.getLargura();
@@ -140,6 +145,7 @@ public class Robo extends Elemento{
                         this.posicaoY = posicaoY0;
                         return false;
                     }
+                    this.cavar();
                     return true;
                 } else {
                     return false;
@@ -155,6 +161,7 @@ public class Robo extends Elemento{
                     this.posicaoY = posicaoY0;
                     return false;
                 }
+                this.cavar();
                 return true;
             } else {
                 this.posicaoY = 0;
@@ -164,13 +171,14 @@ public class Robo extends Elemento{
                         this.posicaoY = posicaoY0;
                         return false;
                     }
+                    this.cavar();
                     return true;
                 } else {
                     return false;
                 }
             }
 
-        } else {
+        } else if (direcao == ESQUERDA){
             int teste = this.posicaoX - velocidadeX;
             if (teste >= 0) {
                 this.posicaoX = teste;
@@ -179,6 +187,7 @@ public class Robo extends Elemento{
                     this.posicaoY = posicaoY0;
                     return false;
                 }
+                this.cavar();
                 return true;
             } else {
                 this.posicaoX = 0;
@@ -188,11 +197,13 @@ public class Robo extends Elemento{
                         this.posicaoY = posicaoY0;
                         return false;
                     }
+                    this.cavar();
                     return true;
                 } else {
                     return false;
                 }
             }
         }
+        return false;
     }
 }
