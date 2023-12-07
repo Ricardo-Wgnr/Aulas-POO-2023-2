@@ -77,7 +77,7 @@ public class Area {
 
         for (int i = 0; i < this.totalDeTesouros; i++) {
             if (this.elementos.get(i) instanceof  Tesouro) {
-                Rectangle tesouro = new Rectangle(this.elementos.get(i).posicaoX,this.elem, entos.get(i).posicaoY, Tesouro.LARGURA, Tesouro.ALTURA);
+                Rectangle tesouro = new Rectangle(this.elementos.get(i).posicaoX,this.elementos.get(i).posicaoY, Tesouro.LARGURA, Tesouro.ALTURA);
                 if (robo.intersects(tesouro)) {
                     return (Tesouro) this.elementos.get(i);
                 }
